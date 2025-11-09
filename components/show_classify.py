@@ -1,4 +1,5 @@
 import streamlit as st
+from components.ui.msg_temp import msg_temp
 
 def show_classifier(modelo, vectorizador):
     st.subheader("Clasifica una nueva solicitud")
@@ -12,9 +13,9 @@ def show_classifier(modelo, vectorizador):
 
     if enviar:
         if entrada.strip() == "":
-            st.warning("⚠️ Por favor ingresa un texto antes de clasificar.")
+            msg_temp(texto="⚠️ Por favor ingresa un texto antes de clasificar", tipo="warning", duracion=5)
         else:
             entrada_procesada = vectorizador.transform([entrada])
             prediccion = modelo.predict(entrada_procesada)[0]
-            st.success("✅ Clasificación exitosa")
-            st.info(f"**Resultado del modelo:** {prediccion}", icon="📥")
+            msg_temp(texto="✅ Clasificación exitosa", tipo="success", duracion=5)
+            st.info(f"**Resultado del modelo:** {prediccion}")
